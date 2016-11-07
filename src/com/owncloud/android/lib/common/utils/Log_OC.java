@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -43,7 +45,7 @@ public class Log_OC {
     }
     public static void d(String TAG, String message, Exception e) {
         Log.d(TAG, message, e);
-        appendLog(TAG + " : " + message + " Exception : "+ e.getStackTrace());
+        appendLog(TAG + " : " + message + " Exception : "+ getStackTrace(e));
     }
     public static void e(String TAG, String message){
         Log.e(TAG, message);
@@ -52,7 +54,7 @@ public class Log_OC {
     
     public static void e(String TAG, String message, Throwable e) {
         Log.e(TAG, message, e);
-        appendLog(TAG+" : " + message +" Exception : " + e.getStackTrace());
+        appendLog(TAG+" : " + message +" Exception : " + getStackTrace(e));
     }
     
     public static void v(String TAG, String message){
@@ -68,6 +70,12 @@ public class Log_OC {
     public static void wtf(String TAG, String message) {
         Log.wtf(TAG, message);
         appendLog(TAG+" : "+ message);
+    }
+
+    private static String getStackTrace(Throwable t) {
+        StringWriter sw = new StringWriter();
+        t.printStackTrace(new PrintWriter(sw));
+        return sw.toString();
     }
 
     /**
