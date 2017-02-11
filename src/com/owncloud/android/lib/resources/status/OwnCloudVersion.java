@@ -51,6 +51,8 @@ public class OwnCloudVersion implements Comparable<OwnCloudVersion> {
 
     public static final int MINIMUM_VERSION_CAPABILITIES_API = 0x08010000; // 8.1
 
+    public static final int MINIMUM_SELF_API = 0x11000200;
+
     private static final int MINIMUM_VERSION_WITH_NOT_RESHAREABLE_FEDERATED = 0x09010000;   // 9.1
 
     private static final int MAX_DOTS = 3;
@@ -162,4 +164,9 @@ public class OwnCloudVersion implements Comparable<OwnCloudVersion> {
     public boolean isNotReshareableFederatedSupported() {
         return (mVersion >= MINIMUM_VERSION_WITH_NOT_RESHAREABLE_FEDERATED);
     }
+
+    public boolean isSelfSupported() {
+        return (mVersion >= MINIMUM_SELF_API);
+    }
+
 }

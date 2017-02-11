@@ -48,7 +48,6 @@ import com.owncloud.android.lib.resources.shares.CreateRemoteShareOperation;
 import com.owncloud.android.lib.resources.shares.GetRemoteSharesOperation;
 import com.owncloud.android.lib.resources.shares.RemoveRemoteShareOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.users.RemoteGetUserQuotaOperation;
 
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
@@ -332,11 +331,6 @@ public class TestActivity extends Activity {
 		return removeOperation.execute(mClient);
 	}
 
-    public RemoteOperationResult getQuota() {
-        RemoteGetUserQuotaOperation getUserQuotaOperation = new RemoteGetUserQuotaOperation();
-        return getUserQuotaOperation.execute(mClient);
-    }
-	
 	
 	/**
 	 * Extracts file from AssetManager to cache folder.
