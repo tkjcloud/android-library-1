@@ -1,5 +1,5 @@
 /* ownCloud Android Library is available under MIT license
- *   Copyright (C) 2016 ownCloud GmbH.
+ *   Copyright (C) 2015 ownCloud Inc.
  *   Copyright (C) 2012  Bartek Przybylski
  *   
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -51,12 +51,10 @@ public class OwnCloudVersion implements Comparable<OwnCloudVersion> {
 
     public static final int MINIMUM_VERSION_CAPABILITIES_API = 0x08010000; // 8.1
 
-    public static final int MINIMUM_SELF_API = 0x11000200;
-
-    private static final int MINIMUM_VERSION_WITH_NOT_RESHAREABLE_FEDERATED = 0x09010000;   // 9.1
-
+    public static final int MINIMUM_SELF_API = 0x0B000200;
+    
     private static final int MAX_DOTS = 3;
-
+    
     // format is in version
     // 0xAABBCCDD
     // for version AA.BB.CC.DD
@@ -159,10 +157,6 @@ public class OwnCloudVersion implements Comparable<OwnCloudVersion> {
 
     public boolean isVersionWithCapabilitiesAPI(){
         return (mVersion>= MINIMUM_VERSION_CAPABILITIES_API);
-    }
-
-    public boolean isNotReshareableFederatedSupported() {
-        return (mVersion >= MINIMUM_VERSION_WITH_NOT_RESHAREABLE_FEDERATED);
     }
 
     public boolean isSelfSupported() {
