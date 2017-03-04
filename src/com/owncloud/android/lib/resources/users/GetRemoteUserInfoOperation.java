@@ -34,7 +34,6 @@ import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
@@ -80,7 +79,7 @@ public class GetRemoteUserInfoOperation extends RemoteOperation {
 
     /**
      * Quota return value for a not computed space value.
-    */
+     */
     public static final long SPACE_NOT_COMPUTED = -1;
 
     /**
@@ -107,20 +106,13 @@ public class GetRemoteUserInfoOperation extends RemoteOperation {
         RemoteOperationResult result = null;
         int status = -1;
         GetMethod get = null;
-        String url;
+        String url = client.getBaseUri() + OCS_ROUTE_SELF;
+
 
         OwnCloudBasicCredentials credentials = (OwnCloudBasicCredentials) client.getCredentials();
-
-        OwnCloudVersion version = client.getOwnCloudVersion();
-        boolean versionWithSelfAPI = version != null && version.isSelfSupported();
-
+        
         //Get the user
         try {
-            if (!versionWithSelfAPI) {
-                url = client.getBaseUri() + OCS_ROUTE_SEARCH + credentials.getUsername();
-            } else {
-                url = client.getBaseUri() + OCS_ROUTE_SELF;
-            }
 
             get = new GetMethod(url);
             get.addRequestHeader(OCS_API_HEADER, OCS_API_HEADER_VALUE);
@@ -157,42 +149,42 @@ public class GetRemoteUserInfoOperation extends RemoteOperation {
                     userInfo.setEmail(respData.getString(NODE_EMAIL));
                 }
 
-                JSONObject quota = respData.getJSONObject(NODE_QUOTA);
-                final Long quotaFree = quota.getLong(NODE_QUOTA_FREE);
-                final Long quotaUsed = quota.getLong(NODE_QUOTA_USED);
-                final Long quotaTotal = quota.getLong(NODE_QUOTA_TOTAL);
-                final Double quotaRelative = quota.getDouble(NODE_QUOTA_RELATIVE);
+                if (respData.has(NODE_QUOTA) && !respData.isNull(NODE_QUOTA)) {
+                    JSONObject quota = respData.getJSONObject(NODE_QUOTA);
+                    final Long quotaFree = quota.getLong(NODE_QUOTA_FREE);
+                    final Long quotaUsed = quota.getLong(NODE_QUOTA_USED);
+                    final Long quotaTotal = quota.getLong(NODE_QUOTA_TOTAL);
+                    final Double quotaRelative = quota.getDouble(NODE_QUOTA_RELATIVE);
 
-                Long quotaValue;
-                try {
-                    quotaValue = quota.getLong(NODE_QUOTA);
-                } catch (JSONException e) {
-                    Log_OC.i(TAG, "Legacy server in use < Nextcloud 9.0.54");
-                    quotaValue = QUOTA_LIMIT_INFO_NOT_AVAILABLE;
+                    Long quotaValue;
+                    try {
+                        quotaValue = quota.getLong(NODE_QUOTA);
+                    } catch (JSONException e) {
+                        Log_OC.i(TAG, "Legacy server in use < Nextcloud 9.0.54");
+                        quotaValue = QUOTA_LIMIT_INFO_NOT_AVAILABLE;
+                    }
+
+                    userInfo.setQuota(new Quota(quotaFree, quotaUsed, quotaTotal, quotaRelative, quotaValue));
                 }
 
-                userInfo.setQuota(new Quota(quotaFree, quotaUsed, quotaTotal, quotaRelative, quotaValue));
+                if (respData.has(NODE_PHONE) && !respData.isNull(NODE_PHONE) &&
+                        !TextUtils.isEmpty(respData.getString(NODE_PHONE))) {
+                    userInfo.setPhone(respData.getString(NODE_PHONE));
+                }
 
-                if (versionWithSelfAPI) {
-                    if (respData.has(NODE_PHONE) && !respData.isNull(NODE_PHONE) &&
-                            !TextUtils.isEmpty(respData.getString(NODE_PHONE))) {
-                        userInfo.setPhone(respData.getString(NODE_PHONE));
-                    }
+                if (respData.has(NODE_ADDRESS) && !respData.isNull(NODE_ADDRESS) &&
+                        !TextUtils.isEmpty(respData.getString(NODE_ADDRESS))) {
+                    userInfo.setAddress(respData.getString(NODE_ADDRESS));
+                }
 
-                    if (respData.has(NODE_ADDRESS) && !respData.isNull(NODE_ADDRESS) &&
-                            !TextUtils.isEmpty(respData.getString(NODE_ADDRESS))) {
-                        userInfo.setAddress(respData.getString(NODE_ADDRESS));
-                    }
+                if (respData.has(NODE_WEBPAGE) && !respData.isNull(NODE_WEBPAGE) &&
+                        !TextUtils.isEmpty(respData.getString(NODE_WEBPAGE))) {
+                    userInfo.setWebpage(respData.getString(NODE_WEBPAGE));
+                }
 
-                    if (respData.has(NODE_WEBPAGE) && !respData.isNull(NODE_WEBPAGE) &&
-                            !TextUtils.isEmpty(respData.getString(NODE_WEBPAGE))) {
-                        userInfo.setWebpage(respData.getString(NODE_WEBPAGE));
-                    }
-
-                    if (respData.has(NODE_TWITTER) && !respData.isNull(NODE_TWITTER) &&
-                            !TextUtils.isEmpty(respData.getString(NODE_TWITTER))) {
-                        userInfo.setTwitter(respData.getString(NODE_TWITTER));
-                    }
+                if (respData.has(NODE_TWITTER) && !respData.isNull(NODE_TWITTER) &&
+                        !TextUtils.isEmpty(respData.getString(NODE_TWITTER))) {
+                    userInfo.setTwitter(respData.getString(NODE_TWITTER));
                 }
 
                 if (respData.has(NODE_ENABLED)) {
