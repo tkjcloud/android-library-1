@@ -31,6 +31,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundExce
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
+import com.owncloud.android.lib.resources.notifications.models.PushResponse;
 
 import org.apache.commons.httpclient.ConnectTimeoutException;
 import org.apache.commons.httpclient.Header;
@@ -116,7 +117,8 @@ public class RemoteOperationResult implements Serializable {
         INVALID_CHARACTER_DETECT_IN_SERVER,
         DELAYED_FOR_WIFI,
         DELAYED_FOR_CHARGING,
-        LOCAL_FILE_NOT_FOUND
+        LOCAL_FILE_NOT_FOUND,
+        NOT_AVAILABLE
     }
 
     private boolean mSuccess = false;
@@ -129,6 +131,7 @@ public class RemoteOperationResult implements Serializable {
 
     private ArrayList<Object> mData;
     private List<Notification> mNotificationData;
+    private PushResponse mPushResponse;
 
     public RemoteOperationResult(ResultCode code) {
         mCode = code;
@@ -286,6 +289,13 @@ public class RemoteOperationResult implements Serializable {
 
     public void setNotificationData(List<Notification> notifications) {
         mNotificationData = notifications;
+    }
+
+    public PushResponse getPushResponseData() {
+        return mPushResponse;
+    }
+    public void setPushResponseData(PushResponse pushResponseData) {
+        mPushResponse = pushResponseData;
     }
 
     public List<Notification> getNotificationData() {
