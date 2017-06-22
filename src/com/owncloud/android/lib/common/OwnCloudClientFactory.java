@@ -24,9 +24,6 @@
 
 package com.owncloud.android.lib.common;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
@@ -42,6 +39,9 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.network.NetworkUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class OwnCloudClientFactory {
     
@@ -105,16 +105,13 @@ public class OwnCloudClientFactory {
     		);
 
         } else {
-            //String password = am.getPassword(account);
             String password = am.blockingGetAuthToken(
             		account, 
             		AccountTypeUtils.getAuthTokenTypePass(account.type), 
             		false);
-            
-            client.setCredentials(
-            		OwnCloudCredentialsFactory.newBasicCredentials(username, password)
-    		);
-            
+
+            OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(username, password);
+            client.setCredentials(credentials);
         }
         
         // Restore cookies
@@ -185,9 +182,9 @@ public class OwnCloudClientFactory {
             
             Bundle result = future.getResult();
             String password = result.getString(AccountManager.KEY_AUTHTOKEN);
-            client.setCredentials(
-            		OwnCloudCredentialsFactory.newBasicCredentials(username, password)
-    		);
+
+            OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(username, password);
+            client.setCredentials(credentials);
         }
         
         // Restore cookies
