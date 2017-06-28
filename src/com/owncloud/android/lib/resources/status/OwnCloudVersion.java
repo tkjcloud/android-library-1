@@ -61,9 +61,7 @@ public class OwnCloudVersion implements Comparable<OwnCloudVersion> {
     public static final int MINIMUM_VERSION_FOR_SELF_API = 0x0B000200;
 
     public static final int MINIMUM_VERSION_FOR_SEARCH_API = 0x0C000000;
-
     public static final int MINIMUM_VERSION_FOR_WEB_LOGIN = 0x0C000000;
-
     private static final int MAX_DOTS = 3;
 
     // format is in version
