@@ -61,7 +61,9 @@ public class OwnCloudVersion implements Comparable<OwnCloudVersion> {
     public static final int MINIMUM_VERSION_FOR_SELF_API = 0x0B000200;
 
     public static final int MINIMUM_VERSION_FOR_SEARCH_API = 0x0C000000;
-    
+
+    public static final int MINIMUM_VERSION_FOR_WEB_LOGIN = 0x0C000000;
+
     private static final int MAX_DOTS = 3;
 
     // format is in version
@@ -172,6 +174,10 @@ public class OwnCloudVersion implements Comparable<OwnCloudVersion> {
         return (mVersion >= MINIMUM_VERSION_WITH_NOT_RESHAREABLE_FEDERATED);
     }
 
+    public boolean isPreemptiveAuthenticationPreferred() {
+        return (mVersion >= MINIMUM_VERSION_WITH_SESSION_MONITORING);
+    }
+
     public boolean isSelfSupported() {
         return (mVersion >= MINIMUM_VERSION_FOR_SELF_API);
     }
@@ -179,4 +185,7 @@ public class OwnCloudVersion implements Comparable<OwnCloudVersion> {
         return (mVersion >= MINIMUM_VERSION_FOR_SEARCH_API);
     }
 
+    public boolean isWebLoginSupported() {
+        return mVersion >= MINIMUM_VERSION_FOR_WEB_LOGIN;
+    }
 }
