@@ -1,3 +1,13 @@
+## 2017-08-07 13:43
+New branches:
+/
+
+Updated branches:
+/
+
+Conflicting branches:
+/
+
 ## 2017-08-07 13:18
 New branches:
 - Dev branch (nextcloud/dev) [https://github.com/nextcloud/android-library/tree/dev] added
