@@ -1,3 +1,13 @@
+## 2017-08-10 00:30
+New branches:
+- Switch to ocsv2 for sharing to get the error messages directly (nextcloud/shareOcsV2) [https://github.com/nextcloud/android-library/pull/67] added
+
+Updated branches:
+- Switch to ocsv2 for sharing to get the error messages directly (nextcloud/shareOcsV2) [https://github.com/nextcloud/android-library/pull/67] updated
+
+Conflicting branches:
+/
+
 ## 2017-08-09 00:30
 New branches:
 /
