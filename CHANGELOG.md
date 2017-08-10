@@ -1,3 +1,13 @@
+## 2017-08-10 08:47
+New branches:
+- Prevent npe if missing contenttype via webdav (nextcloud/fixNPE) [https://github.com/nextcloud/android-library/pull/70] added
+
+Updated branches:
+- Prevent npe if missing contenttype via webdav (nextcloud/fixNPE) [https://github.com/nextcloud/android-library/pull/70] updated
+
+Conflicting branches:
+/
+
 ## 2017-08-10 00:30
 New branches:
 - Switch to ocsv2 for sharing to get the error messages directly (nextcloud/shareOcsV2) [https://github.com/nextcloud/android-library/pull/67] added
