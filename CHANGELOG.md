@@ -1,3 +1,13 @@
+## 2017-08-11 00:30
+New branches:
+- Master (nextcloud/master) [https://github.com/nextcloud/android-library] added
+
+Updated branches:
+- Master (nextcloud/master) [https://github.com/nextcloud/android-library] updated
+
+Conflicting branches:
+/
+
 ## 2017-08-10 09:17
 New branches:
 /
