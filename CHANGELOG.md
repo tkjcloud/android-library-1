@@ -1,3 +1,13 @@
+## 2017-08-10 09:17
+New branches:
+/
+
+Updated branches:
+/
+
+Conflicting branches:
+/
+
 ## 2017-08-10 08:47
 New branches:
 - Prevent npe if missing contenttype via webdav (nextcloud/fixNPE) [https://github.com/nextcloud/android-library/pull/70] added
