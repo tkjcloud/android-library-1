@@ -207,7 +207,15 @@ public class AccountUtils {
         		AccountUtils.Constants.KEY_SUPPORTS_SAML_WEB_SSO) != null;
 
         String username = AccountUtils.getUsernameForAccount(account);
-		OwnCloudVersion version = new OwnCloudVersion(am.getUserData(account, Constants.KEY_OC_VERSION));
+		String ocVersion = am.getUserData(account, Constants.KEY_OC_VERSION);
+
+		OwnCloudVersion version;
+		if (ocVersion == null) {
+			// set to oldest supported version
+			version = OwnCloudVersion.nextcloud_10;
+		} else {
+			version = new OwnCloudVersion(ocVersion);
+		}
 
         if (isOauth2) {    
             String accessToken = am.blockingGetAuthToken(
@@ -297,7 +305,13 @@ public class AccountUtils {
 
 		Uri serverUri = (client.getBaseUri() != null)? client.getBaseUri() : client.getWebdavUri();
 
-		String cookiesString = am.getUserData(account, Constants.KEY_COOKIES);
+		String cookiesString = null;
+		try {
+			cookiesString = am.getUserData(account, Constants.KEY_COOKIES);
+		} catch (SecurityException e) {
+			Log_OC.e(TAG, e.getMessage());
+		}
+
 		if (cookiesString !=null) {
 			String[] cookies = cookiesString.split(";");
 			if (cookies.length > 0) {
