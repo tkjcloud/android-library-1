@@ -78,6 +78,8 @@ public class OCCapability {
 
     private CapabilityBooleanType mExternalLinks;
 
+    private CapabilityBooleanType mEndToEndEncryption;
+
     public OCCapability(){
         mId = 0;
         mAccountName = "";
@@ -117,6 +119,8 @@ public class OCCapability {
         mSupportsNotificationsV2 = CapabilityBooleanType.UNKNOWN;
 
         mExternalLinks = CapabilityBooleanType.UNKNOWN;
+
+        mEndToEndEncryption = CapabilityBooleanType.UNKNOWN;
     }
 
 
@@ -380,6 +384,14 @@ public class OCCapability {
 
     public void setExternalLinks(CapabilityBooleanType mExternalLinks) {
         this.mExternalLinks = mExternalLinks;
+    }
+
+    public CapabilityBooleanType getEndToEndEncryption() {
+        return mEndToEndEncryption;
+    }
+
+    public void setEndToEndEncryption(CapabilityBooleanType endToEndEncryption) {
+        this.mEndToEndEncryption = endToEndEncryption;
     }
 
 }
