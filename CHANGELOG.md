@@ -1,3 +1,13 @@
+## 2017-09-01 00:30
+New branches:
+- Versioning app can be disabled (nextcloud/versioning) [https://github.com/nextcloud/android-library/pull/80] added
+
+Updated branches:
+- Versioning app can be disabled (nextcloud/versioning) [https://github.com/nextcloud/android-library/pull/80] updated
+
+Conflicting branches:
+/
+
 ## 2017-08-31 00:30
 New branches:
 /
