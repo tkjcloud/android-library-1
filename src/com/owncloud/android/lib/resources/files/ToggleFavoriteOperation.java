@@ -48,7 +48,7 @@ public class ToggleFavoriteOperation extends RemoteOperation {
     public ToggleFavoriteOperation(boolean makeItFavorited, String filePath, String userID) {
         this.makeItFavorited = makeItFavorited;
         this.filePath = filePath;
-        this.userID = userID;
+        this.userID = userID.replaceAll(" ", "%20");
     }
 
     @Override
